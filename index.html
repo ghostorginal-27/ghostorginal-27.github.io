@@ -3,24 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benim Websitem</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Yüzen Balina</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to top, #0c1220, #001f3f, #003366); /* Okyanus efekti */
+            cursor: pointer;
+        }
+
+        .whale {
+            position: absolute;
+            width: 200px; /* Balina boyutunu buradan ayarlayabilirsiniz */
+            height: auto;
+            transform-origin: center center;
+            transition: transform 1s ease-in-out;
+            will-change: transform;
+        }
+
+        .whale-image {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .bubble {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: bubble-float 4s forwards;
+            opacity: 0;
+        }
+
+        @keyframes bubble-float {
+            0% {
+                transform: scale(0.1) translateY(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(-100px);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="#">Ana Sayfa</a></li>
-            <li><a href="#hakkimda">Hakkımda</a></li>
-            <li><a href="#">İletişim</a></li>
-        </ul>
-    </nav>
+    <img src="https://i.ibb.co/L50HjH2/whale.png" alt="Balina" class="whale">
 
-    <section id="hakkimda">
-        <h1>Hakkımda</h1>
-        <p>Merhaba, ben Ghost.</p>
-        <p>Test İçin Yaptım Bunu Şu Anlık .</p>
-    </section>
+    <script>
+        const whale = document.querySelector('.whale');
+        const whaleImage = document.querySelector('.whale-image');
+
+        let currentX = window.innerWidth / 2;
+        let currentY = window.innerHeight / 2;
+        let isMoving = false;
+
+        // Balinanın başlangıç pozisyonunu ayarla
+        whale.style.left = `${currentX}px`;
+        whale.style.top = `${currentY}px`;
+
+        // Tıklanan noktayı al ve balinayı hareket ettir
+        document.body.addEventListener('click', (event) => {
+            if (isMoving) return;
+            isMoving = true;
+
+            const targetX = event.clientX;
+            const targetY = event.clientY;
+            
+            // Balinanın tıklanan noktaya bakmasını sağlar
+            const dx = targetX - currentX;
+            const dy = targetY - currentY;
+            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+            // Balinanın yönünü çevirir (sağa veya sola)
+            if (dx < 0) {
+                whale.style.transform = `translate(-50%, -50%) rotateY(180deg) rotate(${angle}deg)`;
+            } else {
+                whale.style.transform = `translate(-50%, -50%) rotateY(0deg) rotate(${angle}deg)`;
+            }
+
+            // Balinanın pozisyonunu hedefe doğru değiştirir
+            whale.style.left = `${targetX}px`;
+            whale.style.top = `${targetY}px`;
+
+            // Hareket bitince bayrağı sıfırlar
+            setTimeout(() => {
+                isMoving = false;
+            }, 1000); // CSS geçiş süresi ile aynı
+
+            currentX = targetX;
+            currentY = targetY;
+
+            // Tıklanan yere baloncuk ekler
+            createBubble(targetX, targetY);
+        });
+
+        // Baloncukları oluşturan fonksiyon
+        function createBubble(x, y) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * 10 + 5;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${x}px`;
+            bubble.style.top = `${y}px`;
+            document.body.appendChild(bubble);
+
+            setTimeout(() => {
+                bubble.remove();
+            }, 4000);
+        }
+    </script>
 
 </body>
-</html>
+    </html>
+    
