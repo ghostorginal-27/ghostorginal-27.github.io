@@ -3,120 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yüzen Balina</title>
+    <title>Seni Seviyorum</title>
     <style>
         body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
             overflow: hidden;
-            background: linear-gradient(to top, #0c1220, #001f3f, #003366); /* Okyanus efekti */
-            cursor: pointer;
+            flex-direction: column;
+            position: relative;
         }
 
-        .whale {
+        .text-container {
+            font-family: 'Arial', sans-serif;
+            font-size: 3em;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+            animation: neon-pulse 1.5s infinite alternate;
             position: absolute;
-            width: 200px; /* Balina boyutunu buradan ayarlayabilirsiniz */
-            height: auto;
-            transform-origin: center center;
-            transition: transform 1s ease-in-out;
-            will-change: transform;
+            z-index: 2;
         }
 
-        .whale-image {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
+        .heart-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .bubble {
+        .dot {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.4);
+            width: 5px;
+            height: 5px;
+            background-color: #ff0000;
             border-radius: 50%;
-            pointer-events: none;
-            animation: bubble-float 4s forwards;
             opacity: 0;
+            animation: move-and-form 5s forwards;
+            filter: blur(1px);
         }
 
-        @keyframes bubble-float {
+        .particle {
+            position: absolute;
+            background-color: #ff0000;
+            border-radius: 50%;
+            opacity: 0;
+            animation: move-and-fade 8s infinite;
+            filter: blur(1px);
+        }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ff0000" d="M50,0 C25,0 0,25 0,50 C0,75 25,100 50,100 C75,100 100,75 100,50 C100,25 75,0 50,0 Z M50,10 C67,10 80,23 80,40 C80,57 67,70 50,70 C33,70 20,57 20,40 C20,23 33,10 50,10 Z"/></svg>');
+            background-size: cover;
+            opacity: 0;
+            animation: fall-and-fade 10s infinite;
+        }
+        
+        @keyframes neon-pulse {
+            from {
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+            }
+            to {
+                text-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000;
+            }
+        }
+
+        @keyframes move-and-form {
             0% {
-                transform: scale(0.1) translateY(0);
-                opacity: 0;
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
             }
             100% {
-                transform: scale(1) translateY(-100px);
                 opacity: 1;
+                transform: var(--final-pos);
+            }
+        }
+
+        @keyframes move-and-fade {
+            0% {
+                transform: translate(var(--start-x), var(--start-y)) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--end-x), var(--end-y)) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fall-and-fade {
+            0% {
+                transform: translate(var(--start-x), -100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--end-x), 100vh) rotate(720deg);
+                opacity: 0;
             }
         }
     </style>
 </head>
 <body>
 
-    <img src="https://i.ibb.co/L50HjH2/whale.png" alt="Balina" class="whale">
+    <div class="heart-container" id="heart-container">
+        <div class="text-container">Seni Seviyorum</div>
+    </div>
 
     <script>
-        const whale = document.querySelector('.whale');
-        const whaleImage = document.querySelector('.whale-image');
+        const heartContainer = document.getElementById('heart-container');
+        const numDots = 250;
+        const numParticles = 50;
+        const numFlowers = 15;
 
-        let currentX = window.innerWidth / 2;
-        let currentY = window.innerHeight / 2;
-        let isMoving = false;
+        // Kalp şeklinin matematiksel formülü
+        function createHeartPath(t) {
+            const x = 16 * Math.sin(t) ** 3;
+            const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            return { x, y };
+        }
 
-        // Balinanın başlangıç pozisyonunu ayarla
-        whale.style.left = `${currentX}px`;
-        whale.style.top = `${currentY}px`;
-
-        // Tıklanan noktayı al ve balinayı hareket ettir
-        document.body.addEventListener('click', (event) => {
-            if (isMoving) return;
-            isMoving = true;
-
-            const targetX = event.clientX;
-            const targetY = event.clientY;
+        // Noktaların kalp şeklini oluşturması
+        for (let i = 0; i < numDots; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            const randomX = (Math.random() - 0.5) * window.innerWidth * 1.5;
+            const randomY = (Math.random() - 0.5) * window.innerHeight * 1.5;
+            dot.style.transform = `translate(${randomX}px, ${randomY}px)`;
             
-            // Balinanın tıklanan noktaya bakmasını sağlar
-            const dx = targetX - currentX;
-            const dy = targetY - currentY;
-            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+            const t = (2 * Math.PI / numDots) * i;
+            const { x, y } = createHeartPath(t);
+            const finalX = x * 15;
+            const finalY = -y * 15;
 
-            // Balinanın yönünü çevirir (sağa veya sola)
-            if (dx < 0) {
-                whale.style.transform = `translate(-50%, -50%) rotateY(180deg) rotate(${angle}deg)`;
-            } else {
-                whale.style.transform = `translate(-50%, -50%) rotateY(0deg) rotate(${angle}deg)`;
-            }
+            dot.style.setProperty('--final-pos', `translate(${finalX}px, ${finalY}px)`);
 
-            // Balinanın pozisyonunu hedefe doğru değiştirir
-            whale.style.left = `${targetX}px`;
-            whale.style.top = `${targetY}px`;
+            heartContainer.appendChild(dot);
+        }
 
-            // Hareket bitince bayrağı sıfırlar
-            setTimeout(() => {
-                isMoving = false;
-            }, 1000); // CSS geçiş süresi ile aynı
+        // Uçuşan parçacıkların oluşturulması
+        for (let i = 0; i < numParticles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = `${Math.random() * 5 + 2}px`;
+            particle.style.height = particle.style.width;
 
-            currentX = targetX;
-            currentY = targetY;
+            const startX = (Math.random() - 0.5) * 600;
+            const startY = (Math.random() - 0.5) * 600;
+            const endX = (Math.random() - 0.5) * 800;
+            const endY = (Math.random() - 0.5) * 800;
 
-            // Tıklanan yere baloncuk ekler
-            createBubble(targetX, targetY);
-        });
+            particle.style.setProperty('--start-x', `${startX}px`);
+            particle.style.setProperty('--start-y', `${startY}px`);
+            particle.style.setProperty('--end-x', `${endX}px`);
+            particle.style.setProperty('--end-y', `${endY}px`);
+            particle.style.animationDelay = `${i * 0.1}s`;
 
-        // Baloncukları oluşturan fonksiyon
-        function createBubble(x, y) {
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            const size = Math.random() * 10 + 5;
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${x}px`;
-            bubble.style.top = `${y}px`;
-            document.body.appendChild(bubble);
+            document.body.appendChild(particle);
+        }
+        
+        // Düşen çiçeklerin oluşturulması
+        for (let i = 0; i < numFlowers; i++) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            const startX = Math.random() * window.innerWidth;
+            const endX = Math.random() * window.innerWidth;
 
-            setTimeout(() => {
-                bubble.remove();
-            }, 4000);
+            flower.style.setProperty('--start-x', `${startX}px`);
+            flower.style.setProperty('--end-x', `${endX}px`);
+            flower.style.animationDuration = `${10 + Math.random() * 5}s`;
+            flower.style.animationDelay = `${i * 1.5}s`;
+
+            document.body.appendChild(flower);
         }
     </script>
 
 </body>
-    </html>
-    
+</html>
