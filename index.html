@@ -1,191 +1,434 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seni Seviyorum</title>
-    <style>
-        body {
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .text-container {
-            font-family: 'Arial', sans-serif;
-            font-size: 3em;
-            color: #ff0000;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-            animation: neon-pulse 1.5s infinite alternate;
-            position: absolute;
-            z-index: 2;
-        }
-
-        .heart-container {
-            position: relative;
-            width: 500px;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .dot {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background-color: #ff0000;
-            border-radius: 50%;
-            opacity: 0;
-            animation: move-and-form 5s forwards;
-            filter: blur(1px);
-        }
-
-        .particle {
-            position: absolute;
-            background-color: #ff0000;
-            border-radius: 50%;
-            opacity: 0;
-            animation: move-and-fade 8s infinite;
-            filter: blur(1px);
-        }
-
-        .flower {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ff0000" d="M50,0 C25,0 0,25 0,50 C0,75 25,100 50,100 C75,100 100,75 100,50 C100,25 75,0 50,0 Z M50,10 C67,10 80,23 80,40 C80,57 67,70 50,70 C33,70 20,57 20,40 C20,23 33,10 50,10 Z"/></svg>');
-            background-size: cover;
-            opacity: 0;
-            animation: fall-and-fade 10s infinite;
-        }
-        
-        @keyframes neon-pulse {
-            from {
-                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-            }
-            to {
-                text-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000;
-            }
-        }
-
-        @keyframes move-and-form {
-            0% {
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 1;
-                transform: var(--final-pos);
-            }
-        }
-
-        @keyframes move-and-fade {
-            0% {
-                transform: translate(var(--start-x), var(--start-y)) scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(var(--end-x), var(--end-y)) scale(0.5);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fall-and-fade {
-            0% {
-                transform: translate(var(--start-x), -100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--end-x), 100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="heart-container" id="heart-container">
-        <div class="text-container">Seni Seviyorum</div>
+<html class="scroll-smooth" lang="tr">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Ghost Pubg Mobile Shop
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0f1a;
+      color: #e0e0ff;
+    }
+    .neon-text {
+      color: #39ff14;
+      text-shadow:
+        0 0 5px #39ff14,
+        0 0 10px #39ff14,
+        0 0 20px #39ff14,
+        0 0 40px #0f0,
+        0 0 80px #0f0;
+      animation: flicker 3s infinite alternate;
+    }
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 5px #39ff14,
+          0 0 10px #39ff14,
+          0 0 20px #39ff14,
+          0 0 40px #0f0,
+          0 0 80px #0f0;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.6;
+        text-shadow: none;
+      }
+    }
+    .neon-border {
+      border-color: #39ff14;
+      box-shadow:
+        0 0 5px #39ff14,
+        0 0 10px #39ff14,
+        0 0 20px #39ff14,
+        0 0 40px #0f0;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+    .neon-border:hover {
+      box-shadow:
+        0 0 10px #39ff14,
+        0 0 20px #39ff14,
+        0 0 40px #0f0,
+        0 0 80px #0f0;
+    }
+    /* Button neon glow */
+    .btn-neon {
+      background-color: transparent;
+      border: 2px solid #39ff14;
+      color: #39ff14;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.375rem;
+      box-shadow:
+        0 0 5px #39ff14,
+        0 0 10px #39ff14;
+      transition: all 0.3s ease-in-out;
+    }
+    .btn-neon:hover {
+      background-color: #39ff14;
+      color: #0f0f1a;
+      box-shadow:
+        0 0 20px #39ff14,
+        0 0 40px #0f0;
+    }
+    /* Scrollbar for accounts section */
+    .scrollbar-thin::-webkit-scrollbar {
+      height: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #0f0f1a;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #39ff14;
+      border-radius: 10px;
+    }
+  </style>
+ </head>
+ <body class="min-h-screen flex flex-col">
+  <header class="bg-black bg-opacity-80 fixed w-full z-30 shadow-lg neon-border">
+   <nav class="container mx-auto flex justify-between items-center py-4 px-6 md:px-12">
+    <a class="text-3xl font-orbitron neon-text tracking-widest" href="#home">
+     PUBG HESAP
+    </a>
+    <ul class="flex space-x-6 text-green-400 font-semibold uppercase tracking-wider text-sm">
+     <li>
+      <a class="hover:text-green-300 transition" href="#home">
+       Anasayfa
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-green-300 transition" href="#accounts">
+       Hesaplar
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-green-300 transition" href="#contact">
+       İletişim
+      </a>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="flex-grow pt-24">
+   <section class="text-center py-20 px-6 bg-gradient-to-b from-black via-gray-900 to-black" id="home">
+    <h1 class="text-5xl md:text-6xl font-orbitron neon-text mb-6">
+     Ghost PUBG MOBİLE Shop
+    </h1>
+    <p class="max-w-xl mx-auto text-green-300 text-lg md:text-xl leading-relaxed">
+     En iyi PUBG Mobile hesapları detaylı bilgilerini keşfedin. Güvenilir ve hızlı satış!
+    </p>
+   </section>
+   <section class="container mx-auto px-6 py-16" id="accounts">
+    <h2 class="text-4xl font-orbitron neon-text mb-12 text-center">
+     Hesaplar
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 1 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon yeşil arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="/Screenshot_2025-03-17-01-26-40-772_com.tencent.ig.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 1 - Level 85
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: M416, AWM, Kar98k
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Conqueror
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Neon Kask, Altın Zırh
+       </li>
+      </ul>
+      <button aria-label="Hesap 1 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 2 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon mavi arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/3a7ea147-2574-4c8e-e7d2-cad3c6c98313.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 2 - Level 72
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: AKM, M24, UMP45
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Diamond
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Kırmızı Kask, Siyah Zırh
+       </li>
+      </ul>
+<button aria-label="Hesap 2 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 3 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon mor arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/960f688c-5af9-4ac4-aeb1-390713072e49.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 3 - Level 90
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: SCAR-L, SLR, DP-28
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Crown
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Altın Kask, Neon Zırh
+       </li>
+      </ul>
+<button aria-label="Hesap 3 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 4 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon turuncu arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/cc66d50a-9143-4345-136d-41199b3f5dc1.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 4 - Level 60
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: M762, Vector, Groza
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Platinum
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Siyah Kask, Kırmızı Zırh
+       </li>
+      </ul>
+      <button aria-label="Hesap 4 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 5 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon kırmızı arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/a7cdebb4-9dec-47f2-093b-98cf97d61793.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 5 - Level 78
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: M416, UMP45, AWM
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Diamond
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Neon Kask, Altın Zırh
+       </li>
+      </ul>
+      <button aria-label="Hesap 5 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="/Screenshot_2025-03-16-00-43-13-860_com.tencent.ig.jpg" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="/Screenshot_2025-03-16-00-43-13-860_com.tencent.ig.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 6 - Level 68
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: SCAR-L, SLR, DP-28
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Crown
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Altın Kask, Neon Zırh
+       </li>
+      </ul>
+      <button aria-label="Hesap 6 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+      </button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 13 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon kırmızı arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/65dbe575-3fd1-4aa7-9efa-4fe75360a596.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 7 - Level 77
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: M416, UMP45, AWM
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Diamond
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Neon Kask, Altın Zırh
+       </li>
+      </ul>
+      <button aria-label="Hesap 7 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 14 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon sarı arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/21f258f0-e892-4dd7-9d5a-4c945b07802f.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 8 - Level 83
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: SCAR-L, M24, DP-28
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Crown
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Altın Kask, Neon Zırh
+       </li>
+      </ul>
+      <button aria-label="Hesap 8 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
+     <article class="bg-black bg-opacity-70 rounded-lg shadow-lg neon-border p-5 flex flex-col">
+      <img alt="PUBG Mobile hesap 15 resmi, karakterin zırhı ve silahları detaylı gösteriliyor, neon turkuaz arka plan" class="rounded-md mb-4 object-cover w-full h-56" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/f6e4e0ca-b854-4328-d994-daa4464ccac5.jpg" width="400"/>
+      <h3 class="text-xl font-semibold text-green-400 mb-2">
+       Hesap 9 - Level 79
+      </h3>
+      <ul class="text-green-300 text-sm flex-grow space-y-1">
+       <li>
+        <i class="fas fa-user-shield mr-2">
+        </i>
+        Elite Royale Pass
+       </li>
+       <li>
+        <i class="fas fa-crosshairs mr-2">
+        </i>
+        Silahlar: M416, AWM, Kar98k
+       </li>
+       <li>
+        <i class="fas fa-trophy mr-2">
+        </i>
+        Derece: Conqueror
+       </li>
+       <li>
+        <i class="fas fa-star mr-2">
+        </i>
+        Skinler: Neon Kask, Altın Zırh
+       </li>
+      </ul>
+      <button aria-label="Hesap 9 için iletişim butonu" class="btn-neon mt-6 self-center px-6 py-2" onclick="window.location.href = 'https://tmstart.me/Ghostorginal';">
+  Satın Al
+</button>
+     </article>
     </div>
-
-    <script>
-        const heartContainer = document.getElementById('heart-container');
-        const numDots = 250;
-        const numParticles = 50;
-        const numFlowers = 15;
-
-        // Kalp şeklinin matematiksel formülü
-        function createHeartPath(t) {
-            const x = 16 * Math.sin(t) ** 3;
-            const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-            return { x, y };
-        }
-
-        // Noktaların kalp şeklini oluşturması
-        for (let i = 0; i < numDots; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            const randomX = (Math.random() - 0.5) * window.innerWidth * 1.5;
-            const randomY = (Math.random() - 0.5) * window.innerHeight * 1.5;
-            dot.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            
-            const t = (2 * Math.PI / numDots) * i;
-            const { x, y } = createHeartPath(t);
-            const finalX = x * 15;
-            const finalY = -y * 15;
-
-            dot.style.setProperty('--final-pos', `translate(${finalX}px, ${finalY}px)`);
-
-            heartContainer.appendChild(dot);
-        }
-
-        // Uçuşan parçacıkların oluşturulması
-        for (let i = 0; i < numParticles; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.width = `${Math.random() * 5 + 2}px`;
-            particle.style.height = particle.style.width;
-
-            const startX = (Math.random() - 0.5) * 600;
-            const startY = (Math.random() - 0.5) * 600;
-            const endX = (Math.random() - 0.5) * 800;
-            const endY = (Math.random() - 0.5) * 800;
-
-            particle.style.setProperty('--start-x', `${startX}px`);
-            particle.style.setProperty('--start-y', `${startY}px`);
-            particle.style.setProperty('--end-x', `${endX}px`);
-            particle.style.setProperty('--end-y', `${endY}px`);
-            particle.style.animationDelay = `${i * 0.1}s`;
-
-            document.body.appendChild(particle);
-        }
-        
-        // Düşen çiçeklerin oluşturulması
-        for (let i = 0; i < numFlowers; i++) {
-            const flower = document.createElement('div');
-            flower.className = 'flower';
-            
-            const startX = Math.random() * window.innerWidth;
-            const endX = Math.random() * window.innerWidth;
-
-            flower.style.setProperty('--start-x', `${startX}px`);
-            flower.style.setProperty('--end-x', `${endX}px`);
-            flower.style.animationDuration = `${10 + Math.random() * 5}s`;
-            flower.style.animationDelay = `${i * 1.5}s`;
-
-            document.body.appendChild(flower);
-        }
-    </script>
-
-</body>
+   </section>
+   <section class="bg-black bg-opacity-80 py-20 px-6 flex flex-col items-center text-center neon-border mx-6 rounded-lg max-w-xl mx-auto mb-16" id="contact">
+    <h2 class="text-4xl font-orbitron neon-text mb-8">
+     İletişim
+    </h2>
+    <p class="text-green-400 text-xl md:text-2xl font-semibold flex items-center space-x-4">
+     <i class="fas fa-phone-alt text-green-400 text-3xl animate-pulse">
+     </i>
+     <span>
+      İletişim için Numara:
+      <a class="underline hover:text-green-300" href="tel:+99364197452">
+       +993 64 197 452
+      </a>
+     </span>
+    </p>
+   </section>
+  </main>
+  <footer class="bg-black bg-opacity-90 py-6 text-center text-green-400 text-sm font-semibold tracking-wide">
+   Size Özel Web Site Yaptırmak İçin Start:@Ghostorginal
+  </footer>
+ </body>
 </html>
