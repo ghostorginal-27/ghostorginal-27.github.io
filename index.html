@@ -19,44 +19,29 @@
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
-
-  <!-- Header -->
   <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="#" class="text-2xl font-bold text-indigo-600">Satıcı Platformu</a>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <a href="#" class="text-2xl font-bold text-indigo-600">Ghost Shop</a>
       <nav class="space-x-6 hidden md:flex">
-        <a href="#products" class="text-gray-700 hover:text-indigo-600 font-semibold">Ürünler</a>
-        <a href="#add-product" class="text-gray-700 hover:text-indigo-600 font-semibold">Ürün Ekle</a>
-        <a href="#contact" class="text-gray-700 hover:text-indigo-600 font-semibold">İletişim</a>
+        <a href="#urunler" class="text-gray-700 hover:text-indigo-600 font-semibold">Ürünler</a>
+        <a href="#urun-ekle" class="text-gray-700 hover:text-indigo-600 font-semibold">Ürün Ekle</a>
       </nav>
       <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
         <i class="fas fa-bars fa-lg"></i>
       </button>
     </div>
     <nav id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-      <a href="#products" class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 font-semibold">Ürünler</a>
-      <a href="#add-product" class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 font-semibold">Ürün Ekle</a>
-      <a href="#contact" class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 font-semibold">İletişim</a>
+      <a href="#urunler" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 font-semibold">Ürünler</a>
+      <a href="#urun-ekle" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 font-semibold">Ürün Ekle</a>
     </nav>
   </header>
 
-  <!-- Main Content -->
-  <main class="flex-grow container mx-auto px-4 py-8 max-w-7xl">
-
-    <!-- Product Listing -->
-    <section id="products" class="mb-16">
-      <h2 class="text-3xl font-bold text-indigo-700 mb-6 text-center">Satıcıların Ürünleri</h2>
-      <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        <!-- Products will be dynamically inserted here -->
-      </div>
-    </section>
-
-    <!-- Add Product Form -->
-    <section id="add-product" class="mb-16 max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold text-indigo-700 mb-6 text-center">Yeni Ürün Ekle</h2>
-      <form id="product-form" class="space-y-6" enctype="multipart/form-data" novalidate>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <section id="urun-ekle" class="mb-12 bg-white rounded-lg shadow p-6">
+      <h2 class="text-2xl font-semibold text-indigo-700 mb-6 text-center">Ürün Ekle</h2>
+      <form id="product-form" class="max-w-3xl mx-auto space-y-6" enctype="multipart/form-data" novalidate>
         <div>
-          <label for="sellerName" class="block text-gray-700 font-semibold mb-1">Satıcı Adı</label>
+          <label for="sellerName" class="block text-gray-700 font-medium mb-1">Satıcı Adı</label>
           <input
             type="text"
             id="sellerName"
@@ -67,7 +52,19 @@
           />
         </div>
         <div>
-          <label for="productName" class="block text-gray-700 font-semibold mb-1">Ürün Adı</label>
+          <label for="contactNumber" class="block text-gray-700 font-medium mb-1">İletişim Numarası</label>
+          <input
+            type="tel"
+            id="contactNumber"
+            name="contactNumber"
+            pattern="^\+?\d{10,15}$"
+            required
+            class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="+993 6x xx xx xx"
+          />
+        </div>
+        <div>
+          <label for="productName" class="block text-gray-700 font-medium mb-1">Ürün Adı</label>
           <input
             type="text"
             id="productName"
@@ -78,7 +75,7 @@
           />
         </div>
         <div>
-          <label for="productDescription" class="block text-gray-700 font-semibold mb-1">Ürün Açıklaması</label>
+          <label for="productDescription" class="block text-gray-700 font-medium mb-1">Ürün Açıklaması</label>
           <textarea
             id="productDescription"
             name="productDescription"
@@ -89,19 +86,7 @@
           ></textarea>
         </div>
         <div>
-          <label for="contactNumber" class="block text-gray-700 font-semibold mb-1">İletişim Numarası</label>
-          <input
-            type="tel"
-            id="contactNumber"
-            name="contactNumber"
-            pattern="^\+?\d{10,15}$"
-            required
-            class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="+993 6xx xxx xx xx"
-          />
-        </div>
-        <div>
-          <label for="productImage" class="block text-gray-700 font-semibold mb-1">Ürün Resmi</label>
+          <label for="productImage" class="block text-gray-700 font-medium mb-1">Ürün Resmi</label>
           <input
             type="file"
             id="productImage"
@@ -111,32 +96,27 @@
             class="w-full"
           />
         </div>
-        <button
-          type="submit"
-          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-md transition"
-        >
-          Ürünü Ekle
-        </button>
+        <div class="text-center">
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <i class="fas fa-plus mr-2"></i> Ürünü Ekle
+          </button>
+        </div>
       </form>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="mb-16 max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold text-indigo-700 mb-6 text-center">İletişim</h2>
-      <p class="text-center text-gray-700 mb-4">
-        Herhangi bir sorunuz veya destek talebiniz için aşağıdaki numaradan bize ulaşabilirsiniz.
-      </p>
-      <p class="text-center text-indigo-600 font-semibold text-lg">
-        <i class="fas fa-phone-alt mr-2"></i> +993 64 19 74 52
-      </p>
+    <section id="urunler" class="mb-12">
+      <h2 class="text-3xl font-bold text-indigo-700 mb-8 text-center">Tüm Ürünler</h2>
+      <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Ürünler buraya JS ile eklenecek -->
+      </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-indigo-700 text-white py-6 mt-auto">
-    <div class="container mx-auto px-4 text-center">
-      &copy; Ghost Web 
-    </div>
+  <footer class="bg-white border-t border-gray-200 py-6 text-center text-gray-600 text-sm">
+    &copy; Ghost Shop Web Site
   </footer>
 
   <script>
@@ -147,124 +127,164 @@
       mobileMenu.classList.toggle('hidden');
     });
 
-    // Product list container
-    const productList = document.getElementById('product-list');
+    // LocalStorage key for products
+    const STORAGE_KEY = 'urunler';
 
-    // Load products from localStorage or initialize empty array
-    let products = JSON.parse(localStorage.getItem('products')) || [];
+    // Load products from localStorage or empty array
+    function loadProducts() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (!data) return [];
+      try {
+        const products = JSON.parse(data);
+        // Filter out expired products (older than 48 hours)
+        const now = Date.now();
+        const filtered = products.filter(p => now - p.timestamp < 48 * 60 * 60 * 1000);
+        if (filtered.length !== products.length) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+        }
+        return filtered;
+      } catch {
+        return [];
+      }
+    }
 
-    // Function to create product card element
-    function createProductCard(product, index) {
-      const card = document.createElement('div');
-      card.className = 'bg-white rounded-lg shadow-md overflow-hidden flex flex-col';
+    // Save products to localStorage
+    function saveProducts(products) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    }
 
-      const img = document.createElement('img');
-      img.src = product.imageDataUrl;
-      img.alt = `Ürün resmi: ${product.productName} - ${product.productDescription}`;
-      img.className = 'w-full h-48 object-cover';
-
-      const content = document.createElement('div');
-      content.className = 'p-4 flex flex-col flex-grow';
-
-      const productName = document.createElement('h3');
-      productName.className = 'text-lg font-semibold text-indigo-700 mb-1';
-      productName.textContent = product.productName;
-
-      const sellerName = document.createElement('p');
-      sellerName.className = 'text-gray-600 mb-1';
-      sellerName.innerHTML = `<i class="fas fa-user mr-2"></i> ${product.sellerName}`;
-
-      const description = document.createElement('p');
-      description.className = 'text-gray-700 flex-grow';
-      description.textContent = product.productDescription;
-
-      const contact = document.createElement('p');
-      contact.className = 'text-indigo-600 font-semibold mt-3 flex items-center';
-      contact.innerHTML = `<i class="fas fa-phone-alt mr-2"></i> ${product.contactNumber}`;
-
-      content.appendChild(productName);
-      content.appendChild(sellerName);
-      content.appendChild(description);
-      content.appendChild(contact);
-
-      card.appendChild(img);
-      card.appendChild(content);
-
-      return card;
+    // Convert file to base64 string
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+      });
     }
 
     // Render all products
     function renderProducts() {
-      productList.innerHTML = '';
+      const container = document.getElementById('products-container');
+      container.innerHTML = '';
+      const products = loadProducts();
+
       if (products.length === 0) {
-        const emptyMessage = document.createElement('p');
-        emptyMessage.className = 'text-center text-gray-500 col-span-full';
-        emptyMessage.textContent = 'Henüz eklenmiş ürün bulunmamaktadır.';
-        productList.appendChild(emptyMessage);
+        container.innerHTML = '<p class="text-center text-gray-500 col-span-full">Henüz ürün eklenmemiş.</p>';
         return;
       }
+
       products.forEach((product, index) => {
-        const card = createProductCard(product, index);
-        productList.appendChild(card);
+        // Increment view count on render
+        product.views = (product.views || 0) + 1;
+
+        const card = document.createElement('article');
+        card.className = 'bg-white rounded-lg shadow-md overflow-hidden flex flex-col';
+
+        const img = document.createElement('img');
+        img.src = product.image;
+        img.alt = `Ürün resmi: ${product.productName} - ${product.productDescription}`;
+        img.className = 'w-full h-48 object-cover';
+
+        const content = document.createElement('div');
+        content.className = 'p-4 flex flex-col flex-grow';
+
+        const title = document.createElement('h3');
+        title.className = 'text-lg font-semibold text-indigo-700 mb-1 truncate';
+        title.textContent = product.productName;
+
+        const desc = document.createElement('p');
+        desc.className = 'text-gray-600 text-sm flex-grow';
+        desc.textContent = product.productDescription;
+
+        const seller = document.createElement('p');
+        seller.className = 'text-gray-700 font-medium mt-3';
+        seller.textContent = `Satıcı: ${product.sellerName}`;
+
+        const contact = document.createElement('p');
+        contact.className = 'text-indigo-600 font-semibold mt-1 break-words';
+        contact.textContent = `İletişim: ${product.contactNumber}`;
+
+        const views = document.createElement('p');
+        views.className = 'text-gray-500 text-xs mt-2 flex items-center';
+        views.innerHTML = `<i class="fas fa-eye mr-1"></i> Görüntüleme: ${product.views}`;
+
+        content.appendChild(title);
+        content.appendChild(desc);
+        content.appendChild(seller);
+        content.appendChild(contact);
+        content.appendChild(views);
+
+        card.appendChild(img);
+        card.appendChild(content);
+
+        container.appendChild(card);
       });
+
+      // Save updated views count
+      saveProducts(products);
     }
 
-    renderProducts();
-
-    // Handle form submission
-    const productForm = document.getElementById('product-form');
-    productForm.addEventListener('submit', (e) => {
+    // Form submit handler
+    const form = document.getElementById('product-form');
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const sellerName = productForm.sellerName.value.trim();
-      const productName = productForm.productName.value.trim();
-      const productDescription = productForm.productDescription.value.trim();
-      const contactNumber = productForm.contactNumber.value.trim();
-      const productImageInput = productForm.productImage;
-
-      if (
-        !sellerName ||
-        !productName ||
-        !productDescription ||
-        !contactNumber ||
-        productImageInput.files.length === 0
-      ) {
-        alert('Lütfen tüm alanları eksiksiz doldurun.');
+      if (!form.checkValidity()) {
+        form.reportValidity();
         return;
       }
 
-      // Validate phone number pattern
-      const phonePattern = /^\+?\d{10,15}$/;
-      if (!phonePattern.test(contactNumber)) {
-        alert('Lütfen geçerli bir iletişim numarası giriniz. Örnek: +99364917452');
+      const sellerName = form.sellerName.value.trim();
+      const contactNumber = form.contactNumber.value.trim();
+      const productName = form.productName.value.trim();
+      const productDescription = form.productDescription.value.trim();
+      const productImageFile = form.productImage.files[0];
+
+      if (!productImageFile) {
+        alert('Lütfen ürün resmi seçiniz.');
         return;
       }
 
-      const file = productImageInput.files[0];
-      const reader = new FileReader();
+      try {
+        const base64Image = await fileToBase64(productImageFile);
 
-      reader.onload = function (event) {
-        const imageDataUrl = event.target.result;
+        const products = loadProducts();
 
         const newProduct = {
           sellerName,
+          contactNumber,
           productName,
           productDescription,
-          contactNumber,
-          imageDataUrl,
+          image: base64Image,
+          timestamp: Date.now(),
+          views: 0,
         };
 
         products.push(newProduct);
-        localStorage.setItem('products', JSON.stringify(products));
-        renderProducts();
-        productForm.reset();
-        alert('Ürün başarıyla eklendi!');
-        // Scroll to products section after adding
-        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-      };
+        saveProducts(products);
 
-      reader.readAsDataURL(file);
+        form.reset();
+        alert('Ürün başarıyla eklendi!');
+
+        renderProducts();
+
+        // Scroll to products section
+        document.getElementById('urunler').scrollIntoView({ behavior: 'smooth' });
+      } catch (error) {
+        alert('Ürün resmi yüklenirken bir hata oluştu.');
+      }
     });
+
+    // Initial render
+    renderProducts();
+
+    // Auto remove expired products every 10 minutes
+    setInterval(() => {
+      const products = loadProducts();
+      saveProducts(products);
+      renderProducts();
+    }, 10 * 60 * 1000);
   </script>
 </body>
-        </html>
+  </html>
